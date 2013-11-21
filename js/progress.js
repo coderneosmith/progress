@@ -3,6 +3,7 @@
 /*jslint nomen: true*/
 /*global Uint8Array*/
 /*global XMLHttpRequest*/
+/*global window*/
 /*===================================*/
 
 function Progress() {
@@ -24,6 +25,17 @@ Progress.prototype = (function() {
                 self.size = Number(request.getResponseHeader("Content-Length"));
             }
             var data = new Uint8Array(request.response);
+
+            // hack for opera opera sometimes does not fire progress with 100% - so we fire it here to make sure that last progress event will report 100%
+            if (window.navigator.userAgent.indexOf("Opera") !== -1) {
+                onprogress({
+                    lengthComputable: true,
+                    loaded: self.size,
+                    total: self.size
+                });
+            }
+            // end of a hack
+            
             onload(data);
         }, false);
         request.addEventListener("progress", onprogress, false);
