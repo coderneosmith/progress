@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Json compression</title>
+    <script type="text/javascript" src="js/progress.js"></script>
+    <script type="text/javascript">
+    var console = console || {log:function(){}}
+
+    function run(){
+        var onerror = function(e){
+            console.log("error")
+            console.log(e)
+        }
+
+        var onprogress = function(e){
+            if (e.lengthComputable) {
+                var percent = (e.loaded / e.total * 100);
+                var formatted = parseFloat(Math.round(percent * 100) / 100).toFixed(2)
+                var text = 'Loaded '+ formatted + '%';
+                
+                console.log(text);
+                
+                var element = document.getElementById("p");
+                element.innerHTML = '';
+                element.appendChild(document.createTextNode(text))
+            } else {
+                console.log('Length not computable.');
+            }
+        }
+
+        var onload = function(data){
+            console.log(data.length);
+        }
+
+        var url = "bigFile.zip"
+
+        var progress = new Progress();
+        console.log(progress);
+        progress.get(url,onprogress,onerror,onload);
+    }
+    </script>
+</head>
+<body onload="run()">
+    <h1>Progress of downloading 10MB file</h1>
+    <p id="p"></p>
+</body>
+</html>
