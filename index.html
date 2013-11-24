@@ -50,16 +50,14 @@
             console.log(data);
         }
 
-        var urlBin = "test.bin"
-        var urlText = "test.txt"
-        var progress = new Progress();
-        
-        progress.get(urlBin, {
+        var progressBin = new Progress();
+        progressBin.get("test.bin", {
           onprogress: onprogressBin,
           binary:true  
         });
         
-        progress.get(urlText, {
+        var progressText = new Progress();
+        progressText.get("test.txt", {
           onprogress:onprogressText  
         });
     }
