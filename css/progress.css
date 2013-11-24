@@ -1,11 +1,11 @@
-#loadingZone {
+.loadingZone {
 	/* margin: 0 auto; */
 	width: 410px;
 	text-align: center;
 	color: inherit;
 }
 
-#loadingBar {
+.loadingZone .loadingBar {
 	border: 1px solid #666;
 	height: 2px;
 	text-align: left;
@@ -15,7 +15,7 @@
 	overflow: hidden; /*fix for IE 6*/
 }
 
-#progressBar {
+.loadingZone .progressBar {
 	height: 2px;
 	line-height: 0;
 	margin: 0;
@@ -24,13 +24,13 @@
 	width: 0%;
 }
 
-#loadingSms {
+.loadingZone .loadingSms {
 	color: #666;
 	float: left;
 	padding: 10px 2px;
 }
 
-#infoProgress {
+.loadingZone .infoProgress {
 	color: #666;
 	float: right;
 	padding: 10px 2px;

@@ -16,21 +16,21 @@
             console.log(e)
         }
 
-        var onprogress = function(e,elementId){
+        var onprogress = function(e,prefix){
             if (e.lengthComputable) {
                 var percentFormatted = parseFloat(Math.round(e.percent * 100) / 100).toFixed(1)
                 var timeLeft =  e.t2/1000;  // convert to seconds
                 var timeLeftFormatted = parseFloat(Math.round(timeLeft * 100) / 100).toFixed(1)
                 var text = percentFormatted + '% left ' + timeLeftFormatted + ' s' ;
 
-                var element = document.getElementById(elementId);
+                var element = document.getElementById("info"+prefix);
                 element.innerHTML = '';
                 element.appendChild(document.createTextNode(text))
 
-                var elementBar = document.getElementById("progressBar");
+                var elementBar = document.getElementById("progressBar"+prefix);
                 elementBar.style["width"] = percentFormatted+"%"
 
-                var infoProgress = document.getElementById("infoProgress");
+                var infoProgress = document.getElementById("infoProgress"+prefix);
                 infoProgress.innerHTML = '';
                 infoProgress.appendChild(document.createTextNode(text))
 
@@ -40,11 +40,11 @@
         }
 
         var onprogressBin = function(e){
-            onprogress(e,"pBin");
+            onprogress(e,"Bin");
         }
 
         var onprogressText = function(e){
-            onprogress(e,"pText");
+            onprogress(e,"Text");
         }
 
         var onload = function(data){
@@ -68,18 +68,33 @@
     </script>
 </head>
 <body onload="run()">
-    <div id="loadingZone">
-        <div id="loadingSms">Loaded</div>
-        <div id="infoProgress">0%</div>
+    
+    <h2>Progress of downloading 10MB binary file</h2>
+    <p>Loaded <span id="infoBin" /></p>
+
+    <div class="loadingZone">
+        <div class="loadingSms">Loaded</div>
+        <div class="infoProgress" id="infoProgressBin">0%</div>
         <br />
-        <div id="loadingBar">
-            <div id="progressBar">&nbsp;</div>
+        <div class="loadingBar">
+            <div class="progressBar" id="progressBarBin">&nbsp;</div>
         </div>
     </div>
 
-    <h2>Progress of downloading 10MB binary file</h2>
-    <p>Loaded <span id="pBin" /></p>
+
     <h2>Progress of downloading 10MB text file</h2>
-    <p>Loaded <span id="pText" /></p>
+    <p>Loaded <span id="infoText" /></p>
+
+    <div class="loadingZone">
+        <div class="loadingSms">Loaded</div>
+        <div class="infoProgress" id="infoProgressText">0%</div>
+        <br />
+        <div class="loadingBar">
+            <div class="progressBar" id="progressBarText">&nbsp;</div>
+        </div>
+    </div>
+
+
+
 </body>
 </html>
