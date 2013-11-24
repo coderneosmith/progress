@@ -37,7 +37,7 @@ Progress.prototype = (function() {
             }
             
             // hack for opera opera sometimes does not fire progress with 100% - so we fire it here to make sure that last progress event will report 100%
-            if (window.navigator.userAgent.indexOf("Opera") !== -1) {
+            //if (window.navigator.userAgent.indexOf("Opera") !== -1) {
                 onprogress({
                     lengthComputable: true,
                     loaded: self.size,
@@ -47,7 +47,7 @@ Progress.prototype = (function() {
                     t2:0,
                     percent: 100
                 });
-            }
+            //}
             // end of a hack
             if(binary){
                 onload(new Uint8Array(request.response));
