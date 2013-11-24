@@ -27,10 +27,7 @@ Progress.prototype = (function() {
             binary = opt.binary || false,
             request = new XMLHttpRequest();
 
-        self.t0 = new Date().getTime();
-
-        onstart();
-
+        
         request.addEventListener("load", function() {
             if (!self.size) {
                 self.size = Number(request.getResponseHeader("Content-Length"));
@@ -69,7 +66,10 @@ Progress.prototype = (function() {
         }else{
             request.overrideMimeType('text/plain; charset=x-user-defined');
         }
+        
         request.send();
+        self.t0 = new Date().getTime();
+        onstart();
     }
 
     // public api 

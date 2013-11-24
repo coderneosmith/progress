@@ -19,20 +19,18 @@
         var onprogress = function(e,prefix){
             if (e.lengthComputable) {
                 var percentFormatted = parseFloat(Math.round(e.percent * 100) / 100).toFixed(1)
+                
                 var timeLeft =  e.t2/1000;  // convert to seconds
                 var timeLeftFormatted = parseFloat(Math.round(timeLeft * 100) / 100).toFixed(1)
+                
                 var text = percentFormatted + '% left ' + timeLeftFormatted + ' s' ;
 
-                var element = document.getElementById("info"+prefix);
-                element.innerHTML = '';
-                element.appendChild(document.createTextNode(text))
-
                 var elementBar = document.getElementById("progressBar"+prefix);
-                elementBar.style["width"] = percentFormatted+"%"
+                elementBar.style["width"] = percentFormatted+"%";
 
                 var infoProgress = document.getElementById("infoProgress"+prefix);
                 infoProgress.innerHTML = '';
-                infoProgress.appendChild(document.createTextNode(text))
+                infoProgress.appendChild(document.createTextNode(text));
 
             } else {
                 console.log('Length not computable.');
@@ -70,7 +68,6 @@
 <body onload="run()">
     
     <h2>Progress of downloading 10MB binary file</h2>
-    <p>Loaded <span id="infoBin" /></p>
 
     <div class="loadingZone">
         <div class="loadingSms">Loaded</div>
@@ -83,7 +80,6 @@
 
 
     <h2>Progress of downloading 10MB text file</h2>
-    <p>Loaded <span id="infoText" /></p>
 
     <div class="loadingZone">
         <div class="loadingSms">Loaded</div>
