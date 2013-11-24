@@ -57,6 +57,7 @@ Progress.prototype = (function() {
             e.t1 = new Date().getTime();
             e.percent = (e.loaded / e.total * 100);
             e.t2 =  e.t0 - e.t1 + ( e.total*(e.t1 - e.t0)) /e.loaded;
+            console.log(e);
             onprogress(e); 
         }, false);
         request.addEventListener("error", onerror, false);
