@@ -3,6 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>progress demo</title>
+    
+    <link type="text/css" rel="stylesheet" href="css/progress.css"/>
+    
     <script type="text/javascript" src="js/progress.js"></script>
     <script type="text/javascript">
     var console = console || {log:function(){}}
@@ -13,36 +16,70 @@
             console.log(e)
         }
 
-        var onprogress = function(e){
+        var onprogress = function(e,elementId){
             if (e.lengthComputable) {
-                var percent = (e.loaded / e.total * 100);
-                var formatted = parseFloat(Math.round(percent * 100) / 100).toFixed(2)
-                var text = 'Loaded '+ formatted + '%';
-                
-                console.log(text);
-                
-                var element = document.getElementById("p");
+                var percentFormatted = parseFloat(Math.round(e.percent * 100) / 100).toFixed(1)
+                var timeLeft =  e.t2/1000;  // convert to seconds
+                var timeLeftFormatted = parseFloat(Math.round(timeLeft * 100) / 100).toFixed(1)
+                var text = percentFormatted + '% left ' + timeLeftFormatted + ' s' ;
+
+                var element = document.getElementById(elementId);
                 element.innerHTML = '';
                 element.appendChild(document.createTextNode(text))
+
+                var elementBar = document.getElementById("progressBar");
+                elementBar.style["width"] = percentFormatted+"%"
+
+                var infoProgress = document.getElementById("infoProgress");
+                infoProgress.innerHTML = '';
+                infoProgress.appendChild(document.createTextNode(text))
+
             } else {
                 console.log('Length not computable.');
             }
         }
 
-        var onload = function(data){
-            console.log(data.length);
+        var onprogressBin = function(e){
+            onprogress(e,"pBin");
         }
 
-        var url = "bigFile.zip"
+        var onprogressText = function(e){
+            onprogress(e,"pText");
+        }
 
+        var onload = function(data){
+            console.log(data.length);
+            console.log(data);
+        }
+
+        var urlBin = "test.bin"
+        var urlText = "test.txt"
         var progress = new Progress();
-        console.log(progress);
-        progress.get(url,onprogress,onerror,onload);
+        
+        progress.get(urlBin, {
+          onprogress: onprogressBin,
+          binary:true  
+        });
+        
+        progress.get(urlText, {
+          onprogress:onprogressText  
+        });
     }
     </script>
 </head>
 <body onload="run()">
-    <h1>Progress of downloading 10MB file</h1>
-    <p id="p"></p>
+    <div id="loadingZone">
+        <div id="loadingSms">Loaded</div>
+        <div id="infoProgress">0%</div>
+        <br />
+        <div id="loadingBar">
+            <div id="progressBar">&nbsp;</div>
+        </div>
+    </div>
+
+    <h2>Progress of downloading 10MB binary file</h2>
+    <p>Loaded <span id="pBin" /></p>
+    <h2>Progress of downloading 10MB text file</h2>
+    <p>Loaded <span id="pText" /></p>
 </body>
 </html>
